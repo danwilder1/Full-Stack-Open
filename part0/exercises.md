@@ -30,5 +30,7 @@ field and clicking the submit button.
 Create a diagram depicting the situation where the user goes to the single page app version of the
 notes app at https://studies.cs.helsinki.fi/exampleapp/spa.
 
+[My response](0.5.md)
+
 ### 0.6: New note
 Create a diagram depicting the situation where the user creates a new note using the single page version of the app.
