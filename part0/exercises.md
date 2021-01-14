@@ -24,6 +24,8 @@ Create a similar diagram depicting the situation where the user creates a new no
 page https://studies.cs.helsinki.fi/exampleapp/notes by writing something into the text 
 field and clicking the submit button.
 
+[My response](0.4.md)
+
 ### 0.5: Single page app
 Create a diagram depicting the situation where the user goes to the single page app version of the
 notes app at https://studies.cs.helsinki.fi/exampleapp/spa.
