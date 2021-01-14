@@ -34,3 +34,5 @@ notes app at https://studies.cs.helsinki.fi/exampleapp/spa.
 
 ### 0.6: New note
 Create a diagram depicting the situation where the user creates a new note using the single page version of the app.
+
+[My response](0.6.md)
