@@ -14,6 +14,8 @@ Review the basics of CSS by reading this tutorial from Mozilla: [CSS tutorial](h
 ### 0.3: HTML forms
 Learn about the basics of HTML forms by reading Mozilla's tutorial [Your first form](https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form).
 
+[My response](0.3.md)
+
 ## Reference for exercises 0.4-0.6
 ![sequence diagram depicting chain of events by opening page at https://studies.cs.helsinki.fi/exampleapp/notes](../images/0.4-0.6-ref.png)
 
