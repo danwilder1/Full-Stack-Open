@@ -4,12 +4,12 @@ From [part 0](https://fullstackopen.com/en/part0/fundamentals_of_web_apps#exerci
 ### 0.1: HTML
 Review the basics of HTML by reading this tutorial from Mozilla: [HTML tutorial](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics).
 
-[My response](0.1-Review-Basic-HTML.md)
+[My response](0.1.md)
 
 ### 0.2: CSS
 Review the basics of CSS by reading this tutorial from Mozilla: [CSS tutorial](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics).
 
-[My response](0.2-Review-Basic-CSS.md)
+[My response](0.2.md)
 
 ### 0.3: HTML forms
 Learn about the basics of HTML forms by reading Mozilla's tutorial [Your first form](https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form).
