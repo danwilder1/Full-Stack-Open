@@ -1,4 +1,4 @@
-# Exercises 0.1.-0.6
+# Exercises 0.1. - 0.6
 From [part 0](https://fullstackopen.com/en/part0/fundamentals_of_web_apps#exercises-0-1-0-6) of Full Stack Open 2020
 
 ### 0.1: HTML
@@ -16,7 +16,7 @@ Learn about the basics of HTML forms by reading Mozilla's tutorial [Your first f
 
 [My response](0.3.md)
 
-## Reference for exercises 0.4-0.6
+## Reference for exercises 0.4 - 0.6
 ![sequence diagram depicting chain of events by opening page at https://studies.cs.helsinki.fi/exampleapp/notes](../images/0.4-0.6-ref.png)
 
 ### 0.4: new note
