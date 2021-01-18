@@ -22,15 +22,24 @@ const Statistics = ({ good, bad, neutral, all }) => {
     return ((100 * good) / all).toString() + "%";
   };
 
+  if (all > 0) {
+    return (
+      <>
+        <h1>statistics</h1>
+        <Statistic label="good" value={good} />
+        <Statistic label="neutral" value={neutral} />
+        <Statistic label="bad" value={bad} />
+        <Statistic label="all" value={all} />
+        <Statistic label="average" value={getAverage()} />
+        <Statistic label="positive" value={getPositivePercentage()} />
+      </>
+    );
+  }
+
   return (
     <>
       <h1>statistics</h1>
-      <Statistic label="good" value={good} />
-      <Statistic label="neutral" value={neutral} />
-      <Statistic label="bad" value={bad} />
-      <Statistic label="all" value={all} />
-      <Statistic label="average" value={getAverage()} />
-      <Statistic label="positive" value={getPositivePercentage()} />
+      <p>No feedback given</p>
     </>
   );
 };
