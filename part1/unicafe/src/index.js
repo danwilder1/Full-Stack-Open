@@ -11,7 +11,16 @@ const Statistic = ({ label, value }) => (
   </p>
 );
 
-const Feedback = () => <h1>give feedback</h1>;
+const Feedback = ({ goodClick, neutralClick, badClick }) => {
+  return (
+    <>
+      <h1>give feedback</h1>
+      <Button handleClick={goodClick} text="good" />
+      <Button handleClick={neutralClick} text="neutral" />
+      <Button handleClick={badClick} text="bad" />
+    </>
+  );
+};
 
 const Statistics = ({ good, bad, neutral, all }) => {
   const getAverage = () => {
@@ -68,10 +77,12 @@ const App = () => {
 
   return (
     <div>
-      <Feedback />
-      <Button handleClick={goodClick} text="good" />
-      <Button handleClick={neutralClick} text="neutral" />
-      <Button handleClick={badClick} text="bad" />
+      <Feedback
+        goodClick={goodClick}
+        neutralClick={neutralClick}
+        badClick={badClick}
+      />
+
       <Statistics good={good} neutral={neutral} bad={bad} all={all} />
     </div>
   );
