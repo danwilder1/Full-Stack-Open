@@ -13,7 +13,27 @@ const Statistic = ({ label, value }) => (
 
 const Feedback = () => <h1>give feedback</h1>;
 
-const Statistics = () => <h1>statistics</h1>;
+const Statistics = ({ good, bad, neutral, all }) => {
+  const getAverage = () => {
+    return (good - bad) / all;
+  };
+
+  const getPositivePercentage = () => {
+    return ((100 * good) / all).toString() + "%";
+  };
+
+  return (
+    <>
+      <h1>statistics</h1>
+      <Statistic label="good" value={good} />
+      <Statistic label="neutral" value={neutral} />
+      <Statistic label="bad" value={bad} />
+      <Statistic label="all" value={all} />
+      <Statistic label="average" value={getAverage()} />
+      <Statistic label="positive" value={getPositivePercentage()} />
+    </>
+  );
+};
 
 const App = () => {
   // save clicks of each button to its own state
@@ -37,27 +57,13 @@ const App = () => {
     setAll(all + 1);
   };
 
-  const getAverage = () => {
-    return (good - bad) / all;
-  };
-
-  const getPositivePercentage = () => {
-    return ((100 * good) / all).toString() + "%";
-  };
-
   return (
     <div>
       <Feedback />
       <Button handleClick={goodClick} text="good" />
       <Button handleClick={neutralClick} text="neutral" />
       <Button handleClick={badClick} text="bad" />
-      <Statistics />
-      <Statistic label="good" value={good} />
-      <Statistic label="neutral" value={neutral} />
-      <Statistic label="bad" value={bad} />
-      <Statistic label="all" value={all} />
-      <Statistic label="average" value={getAverage()} />
-      <Statistic label="positive" value={getPositivePercentage()} />
+      <Statistics good={good} neutral={neutral} bad={bad} all={all} />
     </div>
   );
 };
