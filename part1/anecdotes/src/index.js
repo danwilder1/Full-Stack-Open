@@ -7,16 +7,27 @@ const Button = ({ handleClick, text }) => (
 
 const App = (props) => {
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(new Array(props.anecdotes.length).fill(0));
 
-  const handleClick = () => setSelected(randomInt(0, anecdotes.length));
+  const handleAnecdoteClick = () => {
+    // Random Int between min (inclusive) and max (exclusive)
+    const randomInt = (min, max) =>
+      Math.floor(Math.random() * (max - min) + min);
+    setSelected(randomInt(0, anecdotes.length));
+  };
 
-  // Random Int between min (inclusive) and max (exclusive)
-  const randomInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
+  const handleVoteClick = () => {
+    const copy = { ...votes };
+    copy[selected]++;
+    setVotes(copy);
+  };
 
   return (
     <div>
       <p>{props.anecdotes[selected]}</p>
-      <Button handleClick={handleClick} text="next anecdote" />
+      <p>has {votes[selected]} votes</p>
+      <Button handleClick={handleVoteClick} text="vote" />
+      <Button handleClick={handleAnecdoteClick} text="next anecdote" />
     </div>
   );
 };
