@@ -1,22 +1,38 @@
 import React, { useState } from "react";
+import Numbers from "./components/Numbers";
 
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
   const [newName, setNewName] = useState("");
 
+  const addName = (e) => {
+    e.preventDefault();
+
+    const person = {
+      name: newName,
+    };
+
+    setPersons(persons.concat(person));
+  };
+
+  const handleNameChange = (e) => {
+    setNewName(e.target.value);
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
+
+      <form onSubmit={addName}>
         <div>
-          name: <input />
+          name: <input value={newName} onChange={handleNameChange} />
         </div>
         <div>
           <button type="submit">add</button>
         </div>
       </form>
-      <h2>Numbers</h2>
-      ...
+
+      <Numbers persons={persons} />
     </div>
   );
 };
