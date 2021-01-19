@@ -1,10 +1,24 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
+
 const App = (props) => {
   const [selected, setSelected] = useState(0);
 
-  return <div>{props.anecdotes[selected]}</div>;
+  const handleClick = () => setSelected(randomInt(0, anecdotes.length));
+
+  // Random Int between min (inclusive) and max (exclusive)
+  const randomInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
+
+  return (
+    <div>
+      <p>{props.anecdotes[selected]}</p>
+      <Button handleClick={handleClick} text="next anecdote" />
+    </div>
+  );
 };
 
 const anecdotes = [
