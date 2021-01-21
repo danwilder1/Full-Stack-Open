@@ -2,7 +2,7 @@ import React from "react";
 import Country from "./Country";
 import DetailedCountry from "./DetailedCountry";
 
-const Countries = ({ countries }) => {
+const Countries = ({ countries, countryClick }) => {
   // No matches or too many
   if (countries.length === 0) {
     return <div>No matches, specify another filter</div>;
@@ -15,7 +15,11 @@ const Countries = ({ countries }) => {
     return (
       <>
         {countries.map((country) => (
-          <Country key={country.name} name={country.name} />
+          <Country
+            key={country.name}
+            country={country}
+            onClick={countryClick}
+          />
         ))}
       </>
     );

@@ -20,15 +20,13 @@ const App = () => {
     country.name.toUpperCase().includes(newFilter.toUpperCase())
   );
 
+  const applyFilter = (e) => setNewFilter(e.target.value);
+
   return (
     <>
-      <Filter
-        label="find countries"
-        state={newFilter}
-        onChange={(e) => setNewFilter(e.target.value)}
-      />
+      <Filter label="find countries" state={newFilter} onChange={applyFilter} />
 
-      <Countries countries={filteredCountries} />
+      <Countries countries={filteredCountries} countryClick={applyFilter} />
     </>
   );
 };
