@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import personService from "./services/PersonService";
 
 const App = () => {
   // State
@@ -12,12 +12,10 @@ const App = () => {
   const [newFilter, setNewFilter] = useState("");
 
   // Effect Hook
-  useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
-      console.log(response.data);
-      setPersons(response.data);
-    });
-  }, []);
+  useEffect(
+    () => personService.getAll().then((persons) => setPersons(persons)),
+    []
+  );
 
   const personsToShow =
     newFilter === ""
@@ -37,13 +35,10 @@ const App = () => {
     if (persons.map((person) => person.name).includes(newName)) {
       alert(`${newName} is already added to phonebook`);
     } else {
-      axios.post("http://localhost:3001/persons", person).then((response) => {
-        console.log(response.data);
-        setPersons(persons.concat(response.data));
+      personService.create(person).then((person) => {
+        setPersons(persons.concat(person));
         setNewName("");
       });
-
-      //setPersons(persons.concat(person));
     }
   };
 
