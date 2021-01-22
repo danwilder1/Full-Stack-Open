@@ -8,13 +8,22 @@ const App = () => {
   const [newFilter, setNewFilter] = useState("");
   const [countries, setCountries] = useState([]);
   const [newWeather, setNewWeather] = useState();
+  const [newCity, setNewCity] = useState("");
 
   // "Derived" state
   const filteredCountries = countries.filter((country) =>
     country.name.toUpperCase().includes(newFilter.toUpperCase())
   );
 
-  // note the second parameter []... only fetch once
+  // Single country to display so update if is different than current
+  if (
+    filteredCountries.length === 1 &&
+    newCity !== filteredCountries[0].capital
+  ) {
+    setNewCity(filteredCountries[0].capital);
+  }
+
+  // Fetch countries. note the second parameter '[]' So it only fetches once
   useEffect(
     () =>
       axios.get("https://restcountries.eu/rest/v2/all").then((response) => {
@@ -23,34 +32,37 @@ const App = () => {
     []
   );
 
-  // fetch weather data
+  // fetch weather data when newCity changes
   useEffect(() => {
-    if (filteredCountries.length === 1) {
+    // Skip initial state (i.e hasn't been set)
+    if (newCity !== "") {
       const params = {
         appid: process.env.REACT_APP_API_KEY,
         units: "imperial",
-        q: filteredCountries[0].capital,
+        q: newCity.replace(/,/g, ""),
       };
 
-      console.log(params.appid);
       axios
         .get("https://api.openweathermap.org/data/2.5/weather", { params })
         .then((response) => {
-          console.log(response);
           setNewWeather(response);
         });
     }
-  }, [newFilter]);
+  }, [newCity]);
 
-  const applyFilter = (e) => setNewFilter(e.target.value);
+  const updateFilter = (e) => setNewFilter(e.target.value);
 
   return (
     <>
-      <Filter label="find countries" state={newFilter} onChange={applyFilter} />
+      <Filter
+        label="find countries"
+        state={newFilter}
+        onChange={updateFilter}
+      />
 
       <Countries
         countries={filteredCountries}
-        countryClick={applyFilter}
+        countryClick={updateFilter}
         weather={newWeather}
       />
     </>
