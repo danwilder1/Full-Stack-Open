@@ -1,18 +1,13 @@
 const Weather = ({ weather }) => {
-  const convertToF = (c) => (c * 9) / 5 + 32;
-
-  if (typeof weather !== "undefined") {
+  if (typeof weather !== "undefined" && weather.status === 200) {
     return (
       <>
-        <h3>Weather in {weather.location.name}</h3>
+        <h3>Weather in {weather.data.name}</h3>
         <p>
-          <strong>temperature:</strong>{" "}
-          {convertToF(weather.current.temperature)} Fahrenheit
+          <strong>temperature:</strong> {weather.data.main.temp} Fahrenheit
         </p>
-        <img src={weather.current.weather_icons[0]} alt="weather icon" />
         <p>
-          <strong>wind:</strong> {weather.current.wind_speed} mph direction{" "}
-          {weather.current.wind_dir}
+          <strong>wind:</strong> {weather.data.wind.speed} mph
         </p>
       </>
     );

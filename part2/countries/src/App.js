@@ -8,7 +8,6 @@ const App = () => {
   const [newFilter, setNewFilter] = useState("");
   const [countries, setCountries] = useState([]);
   const [newWeather, setNewWeather] = useState();
-  const [currentWeatherLocation, setCurrentWeatherLocation] = useState("");
 
   // "Derived" state
   const filteredCountries = countries.filter((country) =>
@@ -26,25 +25,22 @@ const App = () => {
 
   // fetch weather data
   useEffect(() => {
-    if (
-      filteredCountries.length === 1 &&
-      filteredCountries[0].name !== currentWeatherLocation
-    ) {
-      // Make sure to start npm with environment variable set
-      const api_key = process.env.REACT_APP_API_KEY;
-      const location = filteredCountries[0].name;
+    if (filteredCountries.length === 1) {
+      const params = {
+        appid: process.env.REACT_APP_API_KEY,
+        units: "imperial",
+        q: filteredCountries[0].capital,
+      };
 
+      console.log(params.appid);
       axios
-        .get(
-          `http://api.weatherstack.com/current?access_key=${api_key}&query=${location}`
-        )
+        .get("https://api.openweathermap.org/data/2.5/weather", { params })
         .then((response) => {
-          setNewWeather(response.data);
+          console.log(response);
+          setNewWeather(response);
         });
-
-      setCurrentWeatherLocation(location);
     }
-  }, [filteredCountries, currentWeatherLocation]);
+  }, [newFilter]);
 
   const applyFilter = (e) => setNewFilter(e.target.value);
 
