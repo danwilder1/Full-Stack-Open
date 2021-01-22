@@ -13,7 +13,6 @@ const App = () => {
 
   // Effect Hook
   useEffect(() => {
-    console.log("effect");
     axios.get("http://localhost:3001/persons").then((response) => {
       console.log(response.data);
       setPersons(response.data);
@@ -38,7 +37,13 @@ const App = () => {
     if (persons.map((person) => person.name).includes(newName)) {
       alert(`${newName} is already added to phonebook`);
     } else {
-      setPersons(persons.concat(person));
+      axios.post("http://localhost:3001/persons", person).then((response) => {
+        console.log(response.data);
+        setPersons(persons.concat(response.data));
+        setNewName("");
+      });
+
+      //setPersons(persons.concat(person));
     }
   };
 
