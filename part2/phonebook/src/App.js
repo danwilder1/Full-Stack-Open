@@ -35,18 +35,34 @@ const App = () => {
   const addName = (e) => {
     e.preventDefault();
 
-    const person = {
-      name: newName,
-      number: newNumber,
-    };
+    const personFound = persons.find((p) => p.name === newName);
 
-    if (persons.map((person) => person.name).includes(newName)) {
-      alert(`${newName} is already added to phonebook`);
+    if (typeof personFound !== "undefined") {
+      updateName(personFound);
     } else {
-      personService.create(person).then((person) => {
+      const newPerson = { name: newName, number: newNumber };
+      personService.create(newPerson).then((person) => {
         setPersons(persons.concat(person));
         setNewName("");
       });
+    }
+  };
+
+  const updateName = (person) => {
+    if (
+      window.confirm(
+        `${person.name} is already added to the phonebook, replace the old number with a new one?`
+      ) === true
+    ) {
+      const updatedPerson = { name: person.name, number: newNumber };
+
+      personService
+        .update(person.id, updatedPerson)
+        .then((returnedPerson) =>
+          setPersons(
+            persons.map((p) => (p.id !== person.id ? p : returnedPerson))
+          )
+        );
     }
   };
 
