@@ -5,13 +5,16 @@ import Persons from "./components/Persons";
 import personService from "./services/PersonService";
 import Notification from "./components/Notification";
 
+const TIMEOUT = 3500;
+
 const App = () => {
   // State
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
-  const [message, setMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   // Effect Hook
   useEffect(
@@ -21,9 +24,20 @@ const App = () => {
 
   const handleDelete = (person) => {
     if (window.confirm(`Delete ${person.name}?`) === true) {
-      personService.remove(person.id).then(() => {
-        setPersons(persons.filter((p) => p.id !== person.id));
-      });
+      personService
+        .remove(person.id)
+        .then(() => {
+          setPersons(persons.filter((p) => p.id !== person.id));
+        })
+        .catch(() => {
+          setErrorMessage(
+            `Information of ${person.name} has already been removed from the server`
+          );
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, TIMEOUT);
+          setPersons(persons.filter((p) => p.id !== person.id));
+        });
     }
   };
 
@@ -46,10 +60,11 @@ const App = () => {
       personService.create(newPerson).then((person) => {
         setPersons(persons.concat(person));
         setNewName("");
-        setMessage(`Added ${newName}`);
+        setNewNumber("");
+        setSuccessMessage(`Added ${newName}`);
         setTimeout(() => {
-          setMessage(null);
-        }, 3000);
+          setSuccessMessage(null);
+        }, TIMEOUT);
       });
     }
   };
@@ -66,10 +81,12 @@ const App = () => {
         setPersons(
           persons.map((p) => (p.id !== person.id ? p : returnedPerson))
         );
-        setMessage(`Updated ${newName}'s number`);
+        setSuccessMessage(`Updated ${newName}'s number`);
         setTimeout(() => {
-          setMessage(null);
-        }, 3000);
+          setSuccessMessage(null);
+        }, TIMEOUT);
+        setNewName("");
+        setNewNumber("");
       });
     }
   };
@@ -90,7 +107,15 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
 
-      <Notification message={message} />
+      {/*if else doesn't work in JSX... testing immediately invoked function*/}
+      {(() => {
+        if (successMessage !== null) {
+          return <Notification message={successMessage} type="success" />;
+        }
+        if (errorMessage !== null) {
+          return <Notification message={errorMessage} type="error" />;
+        }
+      })()}
 
       <Filter state={newFilter} onChange={handleFilterChange} />
 

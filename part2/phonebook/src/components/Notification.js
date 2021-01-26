@@ -1,6 +1,5 @@
-const Notification = ({ message }) => {
-  const style = {
-    color: "green",
+const Notification = ({ message, type }) => {
+  const common = {
     background: "lightgrey",
     fontSize: 20,
     borderStyle: "solid",
@@ -9,7 +8,11 @@ const Notification = ({ message }) => {
     marginBottom: 10,
   };
 
-  if (message === null) return null;
+  const success = { ...common, color: "green" };
+  const error = { ...common, color: "red" };
+
+  const style = type === "success" ? success : error;
+
   return <div style={style}>{message}</div>;
 };
 
