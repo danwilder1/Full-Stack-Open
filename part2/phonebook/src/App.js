@@ -3,6 +3,7 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import personService from "./services/PersonService";
+import Notification from "./components/Notification";
 
 const App = () => {
   // State
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
+  const [message, setMessage] = useState(null);
 
   // Effect Hook
   useEffect(
@@ -44,6 +46,10 @@ const App = () => {
       personService.create(newPerson).then((person) => {
         setPersons(persons.concat(person));
         setNewName("");
+        setMessage(`Added ${newName}`);
+        setTimeout(() => {
+          setMessage(null);
+        }, 3000);
       });
     }
   };
@@ -56,13 +62,15 @@ const App = () => {
     ) {
       const updatedPerson = { name: person.name, number: newNumber };
 
-      personService
-        .update(person.id, updatedPerson)
-        .then((returnedPerson) =>
-          setPersons(
-            persons.map((p) => (p.id !== person.id ? p : returnedPerson))
-          )
+      personService.update(person.id, updatedPerson).then((returnedPerson) => {
+        setPersons(
+          persons.map((p) => (p.id !== person.id ? p : returnedPerson))
         );
+        setMessage(`Updated ${newName}'s number`);
+        setTimeout(() => {
+          setMessage(null);
+        }, 3000);
+      });
     }
   };
 
@@ -81,6 +89,9 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
+
+      <Notification message={message} />
+
       <Filter state={newFilter} onChange={handleFilterChange} />
 
       <h2>add a new</h2>
